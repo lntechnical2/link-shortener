@@ -1,4 +1,4 @@
-# copyrights (mr_python_noob)
+# © @lntechnical(@nicebroadmin)
 import pyshorteners
 import os
 from pyrogram import Client, filters
@@ -11,13 +11,13 @@ from pyrogram.types import (
 
 
 TOKEN = os.environ.get("BOT_TOKEN", "")
-APP_ID = int(os.environ.get("APP_ID", 12345))
+API_ID = int(os.environ.get("API_ID", 12345))
 API_HASH = API_HASH = os.environ.get("API_HASH", "")
 app = Client("short_link", bot_token =TOKEN , api_id = API_ID, api_hash = API_HASH )
 
 @app.on_message(filters.command(['start']))
 def start(client, message):
- message.reply_text(text =f"Hello **{message.from_user.first_name } **\n I am simple Short link generator \ n Send me long link I can convert to short \n \n**This bot created by @lntechnical** ",reply_to_message_id = message.message_id , parse_mode="markdown", reply_markup=InlineKeyboardMarkup(
+ message.reply_text(text =f"Hello **{message.from_user.first_name } **\n I am simple Short link generator \n Send me long link I can convert to short \n \n**This bot created by @lntechnical** ",reply_to_message_id = message.message_id , parse_mode="markdown", reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton("Support 🇮🇳" ,url="https://t.me/lntechnical") ],
@@ -37,8 +37,7 @@ def echo(client, message):
 	except ValidationError as exception:
 		msg.edit("😒 **send me valid URL ......**",parse_mode="markdown")
 		return
-		msg.delete()
-	message.reply_text(f" **Here your short link**\n {short_link}", disable_web_page_preview = False )	
+	msg.edit(f" ** It is your short link**\n{short_link}", disable_web_page_preview = False )	
 		
 app.run()
 
