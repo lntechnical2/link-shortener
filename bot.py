@@ -8,7 +8,7 @@ from pyrogram.types import (
     InlineKeyboardButton,
     InlineKeyboardMarkup
 )
-
+from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 
 TOKEN = os.environ.get("BOT_TOKEN", "")
 API_ID = int(os.environ.get("API_ID", 12345))
@@ -27,17 +27,26 @@ def start(client, message):
 
 @app.on_message(filters.text & filters.private) 
 def echo(client, message):
-	msg = message.reply_text("🧐 **checking link is valid or not **",reply_to_message_id = message.message_id , parse_mode="markdown")
-	link = message.text
-	try:
-		short = pyshorteners.Shortener()
-		short_link =short.tinyurl.short(link)
-		validate = URLValidator()
-		validate(link)
-	except ValidationError as exception:
-		msg.edit("😒 **send me valid URL ......**",parse_mode="markdown")
-		return
-	msg.edit(f" ** It is your short link**\n{short_link}", disable_web_page_preview = False )	
+ update_channel = "lntechnical"
+ user_id = message.from_user.id
+ if update_channel :
+   try:
+   	client.get_chat_member(update_channel, user_id)
+   except UserNotParticipant:
+   	message.reply_text("**__You are not subscribed my channel__** ",parse_mode="markdown", reply_to_message_id = message.message_id, reply_markup = InlineKeyboardMarkup([ [ InlineKeyboardButton("Support 🇮🇳" ,url="https://t.me/lntechnical") ]
+   ]))
+   return
+ msg = message.reply_text("🧐 **checking link is valid or not **",reply_to_message_id = message.message_id , parse_mode="markdown")
+ link = message.text
+ try:
+  	short = pyshorteners.Shortener()
+  	short_link =short.tinyurl.short(link)
+  	validate = URLValidator()
+  	validate(link)
+ except ValidationError as exception:
+  	msg.edit("😒 **send me valid URL ......**",parse_mode="markdown")
+  	return
+ msg.edit(f" ** It is your short link**\n{short_link}", disable_web_page_preview = True)
 		
 app.run()
 
