@@ -13,7 +13,8 @@ from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 TOKEN = os.environ.get("BOT_TOKEN", "")
 API_ID = int(os.environ.get("API_ID", 12345))
 API_HASH = API_HASH = os.environ.get("API_HASH", "")
-app = Client("short_link", bot_token =TOKEN , api_id = API_ID, api_hash = API_HASH )
+app = Client("short_link", bot_token=TOKEN,api_hash=API_HASH,
+            api_id=APP_ID)
 
 @app.on_message(filters.command(['start']))
 def start(client, message):
