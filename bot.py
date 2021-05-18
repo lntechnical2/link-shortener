@@ -10,7 +10,7 @@ from pyrogram.types import (
     InlineKeyboardMarkup
 )
 
-TOKEN = os.environ.get("BOT_TOKEN", "")
+TOKEN = os.environ.get("TOKEN", "")
 API_ID = int(os.environ.get("API_ID", 12345))
 API_HASH = os.environ.get("API_HASH", "")
 app = Client("shortlink", bot_token=TOKEN,api_hash=API_HASH,
